@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <script src="../static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <a href="{{ url_for('index') }}"><h1 class="title">Spell Checker</h1></a>
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('spell_check') }}">Enter Text</a></li>
+                        <li><a href="{{ url_for('register') }}">Register</a></li>
+                        <li><a href="{{ url_for('login') }}">Log in</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        <div class="main-container">
+            <div class="main wrapper clearfix">
+
+                {%  block content %}
+                {%  endblock %}
+
+                {% block sidebar %}
+                    <aside>
+                        <h3>details</h3>
+                        <p> you are tasked with creating a Web service to provide spell checking capability (using the program you created in Assignment 1) to registered users. In order to achieve this, you Web service must provide at least the following functionality, at the following locations:<br>
+1. User registration: /your/webroot/register<br>
+2. User login: /your/webroot/login<br>
+3. Mock Two-factor authentication: /your/webroot/login <br>
+4. Text submission: /your/webroot/spell_check <br>
+5. Result retrieval: /your/webroot/spell_check
+/p>
+                    </aside>
+                {% endblock %}
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+
+        <div class="footer-container">
+            <footer class="wrapper">
+                <p>Spell Checker by PJC</p>
+            </footer>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/vendor/jquery-1.11.0.min.js') }}"><\/script>')</script>
+
+    </body>
+</html>
+
