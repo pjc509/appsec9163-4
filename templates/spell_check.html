@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Spell Checker -- Add Text
+{%  endblock %}
+
+{% block content %}
+    <section>
+        <h1>Enter Text</h1>
+        <form action="" method="post">
+            {{form.hidden_tag()}}
+            <table>
+                {{ render_field(form.text1, size=50) }}
+                {{ render_field(form.submit) }}
+            </table>
+        </form>
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
