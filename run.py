@@ -15,7 +15,10 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-	return 'Register'
+    form = RegisterForm()
+
+    return render_template("register.html", form=form)
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -26,7 +29,9 @@ def login():
 
 @app.route("/spell_check", methods=["GET", "POST"])
 def spell_check():
-	return 'spell check'
+    form = TextForm()
+    return render_template("spell_check.html", form=form)
+
 
 
 @app.errorhandler(404)
