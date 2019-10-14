@@ -9,6 +9,7 @@ from .models import User
 class LoginForm(Form):
     uname = StringField('Your Username:', validators=[DataRequired()])
     pword = PasswordField('Password', validators=[DataRequired()])
+    p2fa = StringField('2FA Password', validators=[DataRequired()])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log In')
 
