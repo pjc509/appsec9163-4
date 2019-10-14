@@ -39,11 +39,12 @@ def register():
     if form.validate_on_submit():
         user = User(email=form.email.data,
                     username=form.uname.data,
-                    password = form.password.data)
+                    password = form.pword.data)
         db.session.add(user)
         db.session.commit()
         flash('Success - Welcome, {}! Please login.'.format(user.username))
-        return redirect(url_for('login'))
+        #return redirect(url_for('login'))
+        #return redirect(url_for('login'))
     return render_template("register.html", form=form)
 
 
@@ -54,13 +55,12 @@ def login():
 
     if form.validate_on_submit():
         user = User.get_by_username(form.uname.data)
-        if user is not None and user.check_password(form.password.data):
+        if user is not None and user.check_password(form.pword.data):
             login_user(user, form.remember_me.data)
             flash("Success - Logged in successfully as {}.".format(user.uname))
-            return redirect(request.args.get('next') or url_for('user',
-                                                username=user.username))
+            return render_template('login.html', form=form)
         flash('Incorrect username or password.')
-
+        #return render_template('login.html', form=form)
     return render_template('login.html', form=form)
 
 

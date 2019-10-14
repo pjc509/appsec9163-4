@@ -8,12 +8,12 @@ from .models import User
 
 class LoginForm(Form):
     uname = StringField('Your Username:', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    pword = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log In')
 
 class TextForm(Form):
-    text1 = StringField('Your Text:', validators=[DataRequired()])
+    inputtext = StringField('Your Text:', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class RegisterForm(Form):
@@ -23,7 +23,7 @@ class RegisterForm(Form):
                         Regexp('^[A-Za-z0-9_]{3,}$',
                             message='Usernames consist of numbers, letters,'
                                     'and underscores.')])
-    password = PasswordField('Password',
+    pword = PasswordField('Password',
                     validators=[
                         DataRequired(),
                         EqualTo('password2', message='Passwords must match.')])
