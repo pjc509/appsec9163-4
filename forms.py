@@ -30,6 +30,7 @@ class RegisterForm(Form):
                         DataRequired(),
                         EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[DataRequired()])
+    p2fa = PasswordField('2fa',id="2fa", validators=[DataRequired()])
     email = StringField('Email',
                         validators=[DataRequired(), Length(1, 120), Email()])
 
