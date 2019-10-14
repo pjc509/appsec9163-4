@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo,\
 
 
 class LoginForm(Form):
-    username = StringField('Your Username:', validators=[DataRequired()])
+    uname = StringField('Your Username:', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log In')
@@ -15,7 +15,7 @@ class TextForm(Form):
     submit = SubmitField('Submit')
 
 class RegisterForm(Form):
-    username = StringField('Username',
+    uname = StringField('Username',
                     validators=[
                         DataRequired(), Length(3, 80),
                         Regexp('^[A-Za-z0-9_]{3,}$',
