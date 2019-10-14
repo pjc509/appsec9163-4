@@ -10,6 +10,7 @@ Spell Checker -- Login
         <h1 style="clear: both">Please login</h1>
         <form action="" method="post">
             {{form.hidden_tag()}}
+            {{form.message()}}
             <table>
                 {{ render_field(form.uname, size=50) }}
                 {{ render_field(form.pword, size=50) }}

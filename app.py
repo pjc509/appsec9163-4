@@ -58,9 +58,9 @@ def login():
         if user is not None and user.check_password(form.pword.data):
             login_user(user, form.remember_me.data)
             flash("Success - Logged in successfully as {}.".format(user.uname))
-            return render_template('login.html', form=form)
+            return render_template('login.html', form=form, Title='id=success')
         flash('Incorrect username or password.')
-        #return render_template('login.html', form=form)
+        return render_template('login.html', form=form, Title='id=Incorrect')
     return render_template('login.html', form=form)
 
 
