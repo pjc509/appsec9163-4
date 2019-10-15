@@ -36,6 +36,7 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
+    form.email.data = 'test@test.com'
     if form.validate_on_submit():
         user = User(email=form.email.data,
                     username=form.uname.data,
