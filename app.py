@@ -37,6 +37,7 @@ def index():
 def register():
     form = RegisterForm()
     form.email.data = 'test@test.com'
+    form.result.data = 'success'
     if form.validate_on_submit():
         user = User(email=form.email.data,
                     username=form.uname.data,
