@@ -4,7 +4,8 @@ from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required, login_user, logout_user
+from flask_login import current_user
 #from flask.ext.moment import Moment
 
 
@@ -25,6 +26,9 @@ login_manager.session_protection = "strong"
 login_manager.login_view = "login"
 login_manager.init_app(app)
 
+@login_manager.user_loader
+def load_user(userid):
+    return User.query.get(int(userid))
 
 
 @app.route('/')
@@ -56,12 +60,11 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
-
     if form.validate_on_submit():
         user = User.get_by_username(form.uname.data)
         if user is not None and user.check_password(form.pword.data):
             login_user(user, form.remember_me.data)
-            flash("id=result Success - Logged in successfully as {}.".format(user.uname))
+            flash("id=result Success - Logged in successfully as {}.".format(user.username))
             form.result.data = 'success'
             return render_template('login.html', form=form)
         flash('id result Incorrect username or password.')
@@ -71,10 +74,20 @@ def login():
 
 
 @app.route("/spell_check", methods=["GET", "POST"])
+@login_required
 def spell_check():
     form = TextForm()
+    if request.method == "POST":
+        textout = request.form.get('inputtext')
+        form.misspelled.data = 'misspelled words'
+        form.textout.data = textout
+        return render_template("spell_check.html", form=form)
     return render_template("spell_check.html", form=form)
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.errorhandler(404)
