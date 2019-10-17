@@ -30,7 +30,7 @@ class RegisterForm(Form):
     pword = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Confirm password')
     p2fa = PasswordField('2fa',id="2fa")
-    result = StringField('Message')
+    success = StringField('Message')
 
 
     def validate_username(self, username_field):

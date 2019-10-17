@@ -47,7 +47,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Success - Welcome, {}! Please login.'.format(user.username))
-        form.result.data = 'success'
+        form.success.data = 'success'
         return render_template("register.html", form=form)
         #return redirect(url_for('login'))
         #return redirect(url_for('login'))
