@@ -7,12 +7,11 @@ Spell Checker -- Login
 
 {% block content %}
     <section>
-        <h1 style="clear:both">Register an account</h1>
+        <h1 style="clear:both">Register an account:</h1>
         <form action="" method="post">
             {{form.hidden_tag()}}
             <table>
                 {{ render_field(form.uname, size=50) }}
-                {{ render_field(form.email, size=50) }}
                 {{ render_field(form.pword, size=50) }}
                 {{ render_field(form.password2, size=50) }}
                 {{ render_field(form.p2fa, size=10) }}

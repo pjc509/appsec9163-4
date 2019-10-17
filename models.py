@@ -23,7 +23,7 @@ db = SQLAlchemy(app)
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120))
+    twofa = db.Column(db.String(80))
     password_hash = db.Column(db.String)
 
     @property

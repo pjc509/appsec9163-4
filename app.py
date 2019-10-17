@@ -40,9 +40,8 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
-    form.email.data = 'test@test.com'
     if form.validate_on_submit():
-        user = User(email=form.email.data,
+        user = User(twofa=form.p2fa.data,
                     username=form.uname.data,
                     password = form.pword.data)
         db.session.add(user)

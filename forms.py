@@ -31,8 +31,6 @@ class RegisterForm(Form):
     password2 = PasswordField('Confirm password')
     p2fa = PasswordField('2fa',id="2fa")
     result = StringField('Message')
-    email = StringField('Email',
-                        validators=[DataRequired(), Length(1, 120), Email()])
 
 
     def validate_username(self, username_field):
