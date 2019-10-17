@@ -28,10 +28,8 @@ class RegisterForm(Form):
                             message='Usernames consist of numbers, letters,'
                                     'and underscores.')])
     pword = PasswordField('Password',
-                    validators=[
-                        DataRequired(),
-                        EqualTo('password2', message='Passwords must match.')])
-    password2 = PasswordField('Confirm password', validators=[DataRequired()])
+                    validators=[DataRequired()])
+    password2 = PasswordField('Confirm password')
     p2fa = PasswordField('2fa',id="2fa", validators=[DataRequired()])
     result = StringField('Message')
     email = StringField('Email',
