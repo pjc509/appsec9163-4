@@ -41,7 +41,6 @@ def index():
 def register():
     form = RegisterForm()
     form.email.data = 'test@test.com'
-    form.result.data = 'success'
     if form.validate_on_submit():
         user = User(email=form.email.data,
                     username=form.uname.data,
@@ -53,6 +52,9 @@ def register():
         return render_template("register.html", form=form)
         #return redirect(url_for('login'))
         #return redirect(url_for('login'))
+    else:
+        form.result.data = 'failure'
+        return render_template("register.html", form=form)
     return render_template("register.html", form=form)
 
 
