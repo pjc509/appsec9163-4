@@ -29,7 +29,11 @@ class RegisterForm(Form):
                                     'and underscores.')])
     pword = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Confirm password')
-    p2fa = PasswordField('2fa',id="2fa")
+    p2fa = PasswordField('2fa',id="2fa", 
+		validators=[
+			Length(10), 
+			Regexp('[0-9]',
+			message='Must be 10 digit telephone')])
     success = StringField('Message')
 
 

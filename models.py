@@ -23,16 +23,22 @@ db = SQLAlchemy(app)
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
-    twofa = db.Column(db.String(80))
+    twofa_hash = db.Column(db.String)
     password_hash = db.Column(db.String)
 
     @property
     def password(self):
         raise AttributeError('password: write-only field')
 
+    def twofa(self):
+        raise AttributeError('twofa: write-only field')
+
     @password.setter
     def password(self, password):
         self.password_hash = generate_password_hash(password)
+
+    def twofa(self, password):
+        self.twofa_hash = generate_password_hash(twofa)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
