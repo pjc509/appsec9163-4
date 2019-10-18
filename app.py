@@ -52,7 +52,6 @@ def register():
         #return redirect(url_for('login'))
         #return redirect(url_for('login'))
     else:
-        form.success.data = 'success'
         return render_template("register.html", form=form)
     return render_template("register.html", form=form)
 
