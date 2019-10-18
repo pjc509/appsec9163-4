@@ -37,7 +37,7 @@ class RegisterForm(Form):
     success = StringField('Message')
 
 
-    def validate_username(self, username_field):
-        if User.query.filter_by(username=username_field.data).first():
+    def validate_username(self, uname_field):
+        if User.query.filter_by(username=uname_field.data).first():
             raise ValidationError('Incorrect - This username is already taken.')
 

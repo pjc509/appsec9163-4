@@ -22,7 +22,7 @@ db = SQLAlchemy(app)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
+    username = db.Column(db.String(80))
     twofa_hash = db.Column(db.String)
     password_hash = db.Column(db.String)
 
