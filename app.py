@@ -63,19 +63,23 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+    result=None
     if form.validate_on_submit():
         user = User.get_by_username(form.uname.data)
         if user is not None and user.check_password(form.pword.data):
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
-            form.result.data = 'success'
-            return render_template('login.html', form=form)
+            #form.result.data = 'success'
+            result = 'success'
+            return render_template('login.html', form=form, result=result)
         else:
             flash('id result Incorrect username or password.')
-            form.result.data = 'Incorrect'
+            #form.result.data = 'Incorrect'
+            result = 'Incorrect'
         flash('id result Incorrect username or password.')
-        form.result.data = 'Incorrect'
-        return render_template('login.html', form=form)
+        #form.result.data = 'Incorrect'
+        result = 'Incorrect'
+        return_render_template('login.html', form=form, result=result)
     return render_template('login.html', form=form)
 
 

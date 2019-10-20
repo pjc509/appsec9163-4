@@ -16,9 +16,13 @@ Spell Checker -- Login
                 {{ render_field(form.p2fa, size=10) }}
                 {{ render_field(form.remember_me) }}
                 {{ render_field(form.submit) }}
-                {{ render_field(form.result) }}
             </table>
         </form>
+        {% if result %}
+        <p id="result">{{ result }}</p>
+        {% endif %}
+
+
     </section>
 {% endblock %}
 
