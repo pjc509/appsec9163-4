@@ -5,6 +5,7 @@ python:
 install:
   - pip install tox-travis
   - pip install -r requirements.txt
+  - pip3 install requests
 # command to run tests
 script:
   - flask run &
