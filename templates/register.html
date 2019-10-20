@@ -15,7 +15,6 @@ Spell Checker -- Login
                 {{ render_field(form.pword, size=50) }}
                 {{ render_field(form.password2, size=50) }}
                 {{ render_field(form.p2fa, size=10) }}
-                {{ render_field(form.success, size=10) }}
                 <tr class="submit">
                     <td></td>
                     <td><button type="submit">Submit</button>
@@ -23,6 +22,9 @@ Spell Checker -- Login
                 </tr>
             </table>
         </form>
+       {% if success %}
+        <p id="success">{{ success }}</p>
+        {% endif %}
     </section>
 {% endblock %}
 

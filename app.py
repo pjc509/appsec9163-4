@@ -40,18 +40,21 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
-    if form.validate_on_submit():
+    success = None
+    if form.validate_on_submit() and request.method == 'POST':
         user = User(twofa=form.p2fa.data,
                     username=form.uname.data,
                     password = form.pword.data)
         db.session.add(user)
         db.session.commit()
         flash('Welcome, {}! Please login.'.format(user.username))
-        form.success.data = 'success'
-        return render_template("register.html", form=form)
+        #form.success.data = 'success'
+        success = 'success'
+        return render_template("register.html", form=form, success=success)
         #return redirect(url_for('login'))
         #return redirect(url_for('login'))
     else:
+        success = 'failure'
         return render_template("register.html", form=form)
     return render_template("register.html", form=form)
 

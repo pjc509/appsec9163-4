@@ -34,8 +34,6 @@ class RegisterForm(Form):
 			Length(10), 
 			Regexp('[0-9]',
 			message='Must be 10 digit telephone')])
-    success = StringField('Message')
-
 
     def validate_uname(self, uname_field):
         if User.query.filter_by(username=uname_field.data).first():
