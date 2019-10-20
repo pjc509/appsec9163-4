@@ -80,7 +80,7 @@ def login():
         #form.result.data = 'Incorrect'
         result = 'Incorrect'
         return_render_template('login.html', form=form, result=result)
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, result=result)
 
 
 @app.route("/spell_check", methods=["GET", "POST"])
