@@ -71,7 +71,7 @@ def login():
             flash("Logged in successfully as {}.".format(user.username))
             #form.result.data = 'success'
             result = 'success'
-            return render_template('login.html', form=form, result=result)
+            return render_template("login.html", form=form, result=result)
         else:
             flash('id result Incorrect username or password.')
             #form.result.data = 'Incorrect'
@@ -79,8 +79,8 @@ def login():
         flash('id result Incorrect username or password.')
         #form.result.data = 'Incorrect'
         result = 'Incorrect'
-        return_render_template('login.html', form=form, result=result)
-    return render_template('login.html', form=form, result=result)
+        return render_template("login.html", form=form, result=result)
+    return render_template("login.html", form=form, result=result)
 
 
 @app.route("/spell_check", methods=["GET", "POST"])
