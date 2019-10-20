@@ -8,6 +8,5 @@ install:
   - pip3 install requests
 # command to run tests
 script:
-  - flask run &
   - tox
 
