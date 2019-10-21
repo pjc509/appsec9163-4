@@ -3,9 +3,9 @@ python:
   - "3.7"
 # command to install dependencies
 install:
-  - sudo pip3 install tox-travis
-  - sudo pip3 install -r requirements.txt
-  - sudo pip3 install requests
+  - pip3 install tox-travis
+  - pip3 install -r requirements.txt
+  - pip3 install requests
 # command to run tests
 script:
   - tox
