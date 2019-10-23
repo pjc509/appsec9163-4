@@ -10,5 +10,6 @@ install:
 before_script:
   - flask run &
 script:
+  - travis_wait 3
   - python test_spell.py
 
