@@ -1,27 +1,48 @@
-import unittest
-import requests
+import os
+import tempfile
 
-server_address="http://127.0.0.1:5000"
-server_login=server_address + "/login"
+import pytest
 
-class FeatureTest(unittest.TestCase):
-    def test_server_is_alive(self):
-        req = requests.get(server_address)
-        self.assertEqual(req.status_code, 200)
+from app import app
 
-    def test_login_page_exists(self):
-        req = requests.get(server_address + "/login")
-        self.assertEqual(req.status_code, 200)
+@pytest.fixture
+def client():
+    db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
+    flaskr.app.config['TESTING'] = True
 
-    #def test_page_exists(self):
-    #    PAGES = ["", "/register", "/login"]
-    #    for page in PAGES:
-    #        req = requests.get(server_address + PAGES)
-    #        self.assertEqual(req.status_code, 200)
-   
+    with flaskr.app.test_client() as client:
+        with flaskr.app.app_context():
+            flaskr.init_db()
+        yield client
 
-if __name__ == '__main__':
-        unittest.main()
+    os.close(db_fd)
+    os.unlink(flaskr.app.config['DATABASE'])
+
+
+def login(client, username, password):
+    return client.post('/login', data=dict(
+        username=username,
+        password=password
+    ), follow_redirects=True)
+
+
+def logout(client):
+    return client.get('/logout', follow_redirects=True)
+
+def test_login_logout(client):
+    """Make sure login and logout works."""
+
+    rv = login(client, flaskr.app.config['USERNAME'], flaskr.app.config['PASSWORD'])
+    assert b'You were logged in' in rv.data
+
+    rv = logout(client)
+    assert b'You were logged out' in rv.data
+
+    rv = login(client, flaskr.app.config['USERNAME'] + 'x', flaskr.app.config['PASSWORD'])
+    assert b'Invalid username' in rv.data
+
+    rv = login(client, flaskr.app.config['USERNAME'], flaskr.app.config['PASSWORD'] + 'x')
+    assert b'Invalid password' in rv.data
 
 
 
