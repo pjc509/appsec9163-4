@@ -8,8 +8,7 @@ install:
   - pip3 install requests
 # command to run tests
 before_script:
-  - flask run &
+  - export FLASK_DEBUG=1
+  - export FLASK_APP="$TRAVIS_BUILD_DIR/app.py"
 script:
-  - travis_wait 3
-  - python test_spell.py
-
+	- flask test_spell
