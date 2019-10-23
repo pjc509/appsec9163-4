@@ -7,7 +7,8 @@ install:
   - pip3 install -r requirements.txt
   - pip3 install requests
 # command to run tests
+before_script:
+  - flask run &
 script:
-  - flask run
   - python test_spell.py
 
