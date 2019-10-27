@@ -99,6 +99,7 @@ def spell_check():
         filename = os.path.join(basedir,'a.out')
         misspelled = subprocess.check_output([filename,'test.txt','wordlist.txt'], stderr= subprocess.STDOUT)
         #mispelled = mispelled.replace("\n",", ")[:-2]
+        misspelled = misspelled.decode()
         misspelled = misspelled.replace("\n",", ")
         return render_template("spell_check.html", form=form, textout=textout, misspelled=misspelled)
     return render_template("spell_check.html", form=form)
