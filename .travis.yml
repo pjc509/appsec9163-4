@@ -11,4 +11,5 @@ before_script:
   - export FLASK_DEBUG=1
   - export FLASK_APP="$TRAVIS_BUILD_DIR/app.py"
 script:
-  - python -m unittest discover
+#  - python -m unittest discover
+  - tox
