@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect, url_for
@@ -88,11 +89,21 @@ def login():
 def spell_check():
     form = TextForm()
     if request.method == "POST":
+        textin = request.form.get('inputtext')
         textout = request.form.get('inputtext')
-        form.misspelled.data = 'misspelled words'
-        form.textout.data = textout
-        return render_template("spell_check.html", form=form)
+        misspelled = request.form.get('inputtext')
+        with open('test.txt', 'w') as f:
+            f.write(str(textin))
+        #filename = os.path.join(app.instance_path, 'a.out test.txt wordlist.txt')
+        #filename = [basedir+'a.out test.txt wordlist.txt']
+        filename = os.path.join(basedir,'a.out')
+        misspelled = subprocess.check_output([filename,'test.txt','wordlist.txt'], stderr= subprocess.STDOUT)
+        #misspelled = stderr
+        #mispelled = proc.stderr.read()
+        #textout = textout.replace("\n",", ")[:-2]
+        return render_template("spell_check.html", form=form, textout=textout, misspelled=misspelled)
     return render_template("spell_check.html", form=form)
+
 
 @app.route("/logout")
 def logout():

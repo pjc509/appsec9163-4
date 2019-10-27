@@ -15,8 +15,6 @@ class LoginForm(Form):
 
 class TextForm(Form):
     inputtext = StringField('Your Text:', validators=[DataRequired()])
-    textout = StringField('Message')
-    misspelled = StringField('Message')
     submit = SubmitField('Submit')
 
 class RegisterForm(Form):

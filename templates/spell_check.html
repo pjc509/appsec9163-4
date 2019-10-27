@@ -13,18 +13,24 @@ Spell Checker -- Add Text
                 <p>
                     Please enter your text here: <input id="inputtext" type="text" name="inputtext">
                 </p>
-                <p>
-                    Output text: <input id="textout" type="text" name="textout">
-                </p>
-                <p>
-                    Misspelled words: <input id="misspelled" type="text" name="misspelled">
-                </p>
 
                 <p>
                     <button type="submit">Submit</button>
                 </p>
             </article>
         </form>
+
+       {% if textout %}
+	<h2>Entered text:</h2>
+        <p id="textout">{{ textout }}</p>
+        {% endif %}
+
+       {% if misspelled %}
+	<h2>Mispelled words:</h2>
+        <p id="misspelled">{{ misspelled }}</p>
+        {% endif %}
+
+
     </section>
 {% endblock %}
 
