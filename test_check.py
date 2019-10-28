@@ -46,17 +46,19 @@ class FeatureTest(unittest.TestCase):
         req = requests.get(server_address + "/spell_check")
         self.assertEqual(req.status_code, 200)
 
+    #Unit test case 5
     def test_valid_login(self):
         login_addr = server_address + "/login"
         resp = login("crefeld", "crefeld", "1234567890")
         print("k1")
         print(resp)
-        self.assertTrue(resp, "success! you are logged in")
+        self.assertTrue(resp, "success")
 
+    #Unit test case 6
     def test_invalid_login(self):
         login_addr = server_address + "/login"
         resp = login("crefeld", "crefeld1", "1234567890")
-        self.assertFalse(resp, "login authentication is invalid")
+        self.assertFalse(resp, "incorrect")
    
 
 if __name__ == '__main__':

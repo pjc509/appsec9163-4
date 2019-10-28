@@ -9,9 +9,7 @@ from flask_login import LoginManager, login_required, login_user, logout_user
 from flask_login import current_user
 #from flask.ext.moment import Moment
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
-
 
 from .forms import LoginForm, RegisterForm, TextForm
 from .models import User
@@ -49,11 +47,8 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Welcome, {}! Please login.'.format(user.username))
-        #form.success.data = 'success'
         success = 'success'
         return render_template("register.html", form=form, success=success)
-        #return redirect(url_for('login'))
-        #return redirect(url_for('login'))
     else:
         success = 'failure'
         return render_template("register.html", form=form)
@@ -70,15 +65,12 @@ def login():
         if user is not None and user.check_password(form.pword.data):
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}.".format(user.username))
-            #form.result.data = 'success'
             result = 'success'
             return render_template("login.html", form=form, result=result)
         else:
             flash('id result Incorrect username or password.')
-            #form.result.data = 'Incorrect'
             result = 'Incorrect'
         flash('id result Incorrect username or password.')
-        #form.result.data = 'Incorrect'
         result = 'Incorrect'
         return render_template("login.html", form=form, result=result)
     return render_template("login.html", form=form, result=result)
@@ -94,11 +86,8 @@ def spell_check():
         misspelled = request.form.get('inputtext')
         with open('test.txt', 'w') as f:
             f.write(str(textin))
-        #filename = os.path.join(app.instance_path, 'a.out test.txt wordlist.txt')
-        #filename = [basedir+'a.out test.txt wordlist.txt']
         filename = os.path.join(basedir,'a.out')
         misspelled = subprocess.check_output([filename,'test.txt','wordlist.txt'], stderr= subprocess.STDOUT)
-        #mispelled = mispelled.replace("\n",", ")[:-2]
         misspelled = misspelled.decode()
         misspelled = misspelled.replace("\n",", ")
         return render_template("spell_check.html", form=form, textout=textout, misspelled=misspelled)
