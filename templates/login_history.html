@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login History -- Enter User Id
+{%  endblock %}
+
+{% block content %}
+    <section>
+        <h1>Enter User Id</h1>
+        <form action="" method="post">
+            {{form.hidden_tag()}}
+            <article>
+                <p>
+                    Please enter user id: <input id="userid" type="text" name="userid">
+                </p>
+
+                <p>
+                    <button type="submit">Submit</button>
+                </p>
+            </article>
+        </form>
+
+       {% if textout %}
+	<h2>Entered text:</h2>
+        <p id="login"{{ textout }}></p>
+        {% endif %}
+
+    </section>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

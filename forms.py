@@ -17,6 +17,16 @@ class TextForm(Form):
     inputtext = StringField('Your Text:', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class LoginHistory(Form):
+    userid = StringField('User ID:',
+                    validators=[
+                        DataRequired(), Length(3, 80),
+                        Regexp('^[A-Za-z0-9_]{3,}$',
+                            message='User ID consist of numbers, letters,'
+                                    'and underscores.')])
+    submit = SubmitField('Submit')
+
+
 class RegisterForm(Form):
     uname = StringField('Username',
                     validators=[

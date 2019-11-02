@@ -11,10 +11,10 @@ from flask_login import current_user
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-from .forms import LoginForm, RegisterForm, TextForm
+from .forms import LoginForm, RegisterForm, TextForm, LoginHistory
 from .models import User
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'spellchecker.db')
 db = SQLAlchemy(app)
@@ -34,7 +34,6 @@ def load_user(userid):
 @app.route('/index')
 def index():
 	return render_template('index.html')
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -75,6 +74,13 @@ def login():
         return render_template("login.html", form=form, result=result)
     return render_template("login.html", form=form, result=result)
 
+@app.route("/login_history", methods=["GET", "POST"])
+def login_history():
+    form = LoginHistory()
+    if request.method == "POST":
+        textout = request.form.get('userid')
+        return render_template("login_history.html", form=form, textout=textout)
+    return render_template("login_history.html", form=form)
 
 @app.route("/spell_check", methods=["GET", "POST"])
 @login_required
