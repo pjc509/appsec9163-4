@@ -75,6 +75,7 @@ def login():
     return render_template("login.html", form=form, result=result)
 
 @app.route("/login_history", methods=["GET", "POST"])
+@login_required
 def login_history():
     form = LoginHistory()
     if request.method == "POST":
