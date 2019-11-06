@@ -18,6 +18,35 @@ app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'spellchecker.db')
 db = SQLAlchemy(app)
 
+class LoginRecord(db.Model):
+    record_number = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    time_on = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    time_off = db.Column(db.DateTime, default=datetime.utcnow)
+
+    @staticmethod
+    def get_by_user_id(user_id):
+        return LoginRecord.query.filter_by(user_id=user_id).first()
+
+    def __repr__(self):
+        return "<User '{}'>".format(self.user_id)
+
+class QueryRecord(db.Model):
+    query_number = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    text = db.Column(db.Text, nullable=False)
+    results = db.Column(db.Text, nullable=False)
+
+
+    @staticmethod
+    def get_by_user_id(user_id):
+        return LoginRecord.query.filter_by(user_id=user_id).first()
+
+    def __repr__(self):
+        return "<User '{}'>".format(self.user_id)
+
+
 
 
 class User(db.Model, UserMixin):

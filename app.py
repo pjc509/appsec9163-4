@@ -11,8 +11,8 @@ from flask_login import current_user
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-from .forms import LoginForm, RegisterForm, TextForm, LoginHistory
-from .models import User
+from .forms import LoginForm, RegisterForm, TextForm, LoginHistory, HistoryForm
+from .models import User, QueryRecord, LoginRecord
 
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
@@ -77,11 +77,23 @@ def login():
 @app.route("/login_history", methods=["GET", "POST"])
 @login_required
 def login_history():
+    #admin can submit username to view log in and out for user
     form = LoginHistory()
     if request.method == "POST":
         textout = request.form.get('userid')
         return render_template("login_history.html", form=form, textout=textout)
     return render_template("login_history.html", form=form)
+
+
+@app.route("/history", methods=["GET", "POST"])
+def history():
+    #history of queries submitted by user, if admin can submit username
+    form = HistoryForm()
+    if request.method == "POST":
+        textout = request.form.get('userid')
+        return render_template("login_history.html", form=form, textout=textout)
+    return render_template("history.html", form=form)
+
 
 @app.route("/spell_check", methods=["GET", "POST"])
 @login_required

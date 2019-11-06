@@ -17,6 +17,11 @@ class TextForm(Form):
     inputtext = StringField('Your Text:', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class HistoryForm(Form):
+    username = StringField('Your Username:')
+    submit = SubmitField('Submit')
+
+
 class LoginHistory(Form):
     userid = StringField('User ID:',
                     validators=[

@@ -22,7 +22,8 @@ Login History -- Enter User Id
 
        {% if textout %}
 	<h2>Entered text:</h2>
-        <p id="login"{{ textout }}></p>
+        <p id="login"{{ textout }}"_time"></p>
+        <p id="logout"{{ textout }}"_time"></p>
         {% endif %}
 
     </section>
