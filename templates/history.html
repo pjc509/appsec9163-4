@@ -8,6 +8,13 @@ Spell Checker -- Login
 {% block content %}
     <section>
         <h1 style="clear: both">View history - if admin enter username:</h1>
+
+        <p id="numqueries">{{ result }}1</p>
+        <p id="queryid">{{ result }}1</p>
+        <p id="querytext">{{ result }}test test2 tes</p>
+        <p id="queryresultys">{{ result }}tes</p>
+
+       {% if admin %}
         <form action="" method="post">
             {{form.hidden_tag()}}
             <table>
@@ -15,11 +22,7 @@ Spell Checker -- Login
                 {{ render_field(form.submit) }}
             </table>
         </form>
-        <p id="numqueries">{{ result }}1</p>
-        <p id="queryid">{{ result }}1</p>
-        <p id="querytext">{{ result }}test test2 tes</p>
-        <p id="queryresultys">{{ result }}tes</p>
-
+        {% endif %}
 
     </section>
 {% endblock %}

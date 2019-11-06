@@ -89,10 +89,11 @@ def login_history():
 def history():
     #history of queries submitted by user, if admin can submit username
     form = HistoryForm()
+    admin = 1
     if request.method == "POST":
         textout = request.form.get('userid')
-        return render_template("login_history.html", form=form, textout=textout)
-    return render_template("history.html", form=form)
+        return render_template("history.html", form=form, textout=textout)
+    return render_template("history.html", form=form, admin=admin)
 
 
 @app.route("/spell_check", methods=["GET", "POST"])
