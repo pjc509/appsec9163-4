@@ -86,10 +86,18 @@ def login_history():
 
 
 @app.route("/history", methods=["GET", "POST"])
+@login_required
 def history():
     #history of queries submitted by user, if admin can submit username
     form = HistoryForm()
     admin = 1
+    cursor = g.db.execute("""
+        SELECT q.query_number, q.text, q.results
+        FROM QueryRecord q INNER JOIN User u ON q.user_id = u.id
+        WHERE u.username = 'admin';
+    """)
+    query = [dict(query_number=row[0], text=row[1])
+        for row in cursor.fetchall()]
     if request.method == "POST":
         textout = request.form.get('userid')
         return render_template("history.html", form=form, textout=textout)
