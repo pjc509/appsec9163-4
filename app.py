@@ -70,6 +70,11 @@ def login():
         user = User.get_by_username(form.uname.data)
         if user is not None and user.check_password(form.pword.data):
             login_user(user, form.remember_me.data)
+            date = datetime.utcnow()
+            userid = 1
+            lr = LoginRecord(user_id=userid, time_on=date)
+            db.session.add(lr)
+            db.session.commit()
             flash("Logged in successfully as {}.".format(user.username))
             result = 'success'
             return render_template("login.html", form=form, result=result)
@@ -88,7 +93,10 @@ def login_history():
     form = LoginHistory()
     if request.method == "POST":
         textout = request.form.get('userid')
-        return render_template("login_history.html", form=form, textout=textout)
+        admin = 1
+        userid = 1
+        lr = db.session.query(LoginRecord).filter_by(user_id=userid)
+        return render_template("login_history.html", form=form, textout=textout, lr=lr)
     return render_template("login_history.html", form=form)
 
 
@@ -143,7 +151,13 @@ def spell_check():
 
 @app.route("/logout")
 def logout():
+    userid = 1
     logout_user()
+    #lr = db.session.query(LoginRecord).last()
+    lr = LoginRecord.query.filter_by(user_id=userid).order_by(LoginRecord.record_number.desc()).first()
+    date = datetime.utcnow()
+    lr.time_off = datetime.utcnow()
+    db.session.commit()
     return redirect(url_for('index'))
 
 

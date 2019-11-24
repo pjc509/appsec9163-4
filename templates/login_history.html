@@ -26,6 +26,22 @@ Login History -- Enter User Id
         <p id="logout"{{ textout }}"_time"></p>
         {% endif %}
 
+        <p id="numqueries">1</p>
+        {% for book in lr %} 
+        <li> record_id: {{book.record_number}}</li>
+        <p id="userid">{{ book.user_id }}</p>
+        <p id="login{{ book.record_number }}">{{ book.record_number }}</p>
+        <p id="login">{{ book.record_number }}</p>
+        <p id="login_time">{{ book.time_on }}</p>
+        <p id="login{{ book.record_number }}_time">{{ book.time_on }}</p>
+        <p id="logout_time">{{ book.time_off }}</p>
+        <p id="logout{{ book.record_number }}_time">{{ book.time_off }}</p>
+      
+        {% endfor %}
+
+
+
+
     </section>
 {% endblock %}
 
