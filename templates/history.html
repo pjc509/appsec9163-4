@@ -23,6 +23,16 @@ Spell Checker -- Login
             </table>
         </form>
         {% endif %}
+        <p id="numqueries">1</p>
+        {% for book in qr %} 
+        <li> {{book.query_number}} by {{book.results}} </li>
+        <a href="{{url_for('history', book_id = book.query_number)}}"> 
+        <p id="query{{book.query_id}}">{{ book.query_number }}</p>
+        </a>
+       
+        {% endfor %}
+
+
 
     </section>
 {% endblock %}

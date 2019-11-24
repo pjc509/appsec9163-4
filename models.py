@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import desc
+from sqlalchemy import desc, DateTime
 from sqlalchemy.util import KeyedTuple
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -41,7 +41,7 @@ class QueryRecord(db.Model):
 
     @staticmethod
     def get_by_user_id(user_id):
-        return LoginRecord.query.filter_by(user_id=user_id).first()
+        return QueryRecord.query.filter_by(user_id=user_id).first()
 
     def __repr__(self):
         return "<User '{}'>".format(self.user_id)

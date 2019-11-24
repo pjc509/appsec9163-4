@@ -1,8 +1,9 @@
 import os
 import subprocess
+#import sqlite3
 
 from datetime import datetime
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager, login_required, login_user, logout_user
@@ -29,6 +30,12 @@ login_manager.init_app(app)
 def load_user(userid):
     return User.query.get(int(userid))
 
+#def connect_db():
+    #return sqlite3.connect(app.config['SQLALCHEMY_DATABASE_URI'])
+
+#@app.before_request
+#def before_request():
+    #g.db = connect_db()
 
 @app.route('/')
 @app.route('/index')
@@ -91,17 +98,24 @@ def history():
     #history of queries submitted by user, if admin can submit username
     form = HistoryForm()
     admin = 1
-    cursor = g.db.execute("""
-        SELECT q.query_number, q.text, q.results
-        FROM QueryRecord q INNER JOIN User u ON q.user_id = u.id
-        WHERE u.username = 'admin';
-    """)
-    query = [dict(query_number=row[0], text=row[1])
-        for row in cursor.fetchall()]
+    qr = db.session.query(QueryRecord).all()
+    #cursor = g.db.execute("""
+        #SELECT q.query_number, q.text, q.results
+        #FROM QueryRecord q INNER JOIN User u ON q.user_id = u.id
+        #WHERE u.username = 'admin';
+    #""")
+    #query = [dict(query_number=row[0], text=row[1])
+    #    for row in cursor.fetchall()]
     if request.method == "POST":
         textout = request.form.get('userid')
         return render_template("history.html", form=form, textout=textout)
-    return render_template("history.html", form=form, admin=admin)
+    return render_template("history.html", form=form, admin=admin, qr=qr)
+
+@app.route("/history/<int:query_id>", methods=["GET", "POST"])
+def history_id():
+    #placeholder
+    form = TextForm()
+    return render_template("spell_check.html", form=form)
 
 
 @app.route("/spell_check", methods=["GET", "POST"])
@@ -118,6 +132,11 @@ def spell_check():
         misspelled = subprocess.check_output([filename,'test.txt','wordlist.txt'], stderr= subprocess.STDOUT)
         misspelled = misspelled.decode()
         misspelled = misspelled.replace("\n",", ")
+        date = datetime.utcnow()
+        userid = 1
+        qr = QueryRecord(user_id=userid, date=date, text=textin, results=misspelled)
+        db.session.add(qr)
+        db.session.commit()
         return render_template("spell_check.html", form=form, textout=textout, misspelled=misspelled)
     return render_template("spell_check.html", form=form)
 
