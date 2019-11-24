@@ -27,7 +27,10 @@ Spell Checker -- Login
         {% for book in qr %} 
         <li> {{book.query_number}} by {{book.results}} </li>
         <a href="{{url_for('history', book_id = book.query_number)}}"> 
-        <p id="query{{book.query_id}}">{{ book.query_number }}</p>
+        <p id="queryid">{{ book.query_number }}</p>
+        <p id="username">{{ book.user_id }}</p>
+        <p id="querytext">{{ book.text }}</p>
+        <p id="queryresults">{{ book.results }}</p>
         </a>
        
         {% endfor %}
