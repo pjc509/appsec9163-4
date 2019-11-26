@@ -126,7 +126,7 @@ def spell_check():
     if request.method == "POST":
         textin = request.form.get('inputtext')
         textout = request.form.get('inputtext')
-        misspelled = request.form.get('inputtext')
+        #misspelled = request.form.get('inputtext')
         with open('test.txt', 'w') as f:
             f.write(str(textin))
         filename = os.path.join(basedir,'a.out')
