@@ -8,12 +8,21 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager, login_required, login_user, logout_user
 from flask_login import current_user
-#from flask.ext.moment import Moment
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 from .forms import LoginForm, RegisterForm, TextForm, LoginHistory, HistoryForm
 from .models import User, QueryRecord, LoginRecord
+
+#from glob import glob
+#for var in glob('/run/secrets/*'):
+#    k=var.split('/')[-1]
+#    v=open(var).read().rstrip('\n')
+#    os.environ[k] = v
+#    print("export {key}={value}".format(key=k,value=v))
+
+#admin_password = str(os.environ['admin_password'])
+#csrf_token = str(os.environ['csrf_token'])
 
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
