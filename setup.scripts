@@ -1,0 +1,12 @@
+csrf_token=
+~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e
+
+echo Administrator@1 | docker secret create admin_password -
+
+echo '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e' | docker secret create csrf_token -
+
+docker service create --name flask-tutorial --secret source=csrf_token,target=csrf_token --secret source=admin_password,target=admin_password -p 8080:5000 flask-tutorial:latest
+
+
+
+

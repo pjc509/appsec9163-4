@@ -16,7 +16,6 @@ from .models import User, QueryRecord, LoginRecord
 
 
 app = Flask(__name__, template_folder='templates')
-
 #for docker container without secrets
 app.config['SECRET_KEY'] = '~t\x86\xc9\x1ew\x8bOcX\x85O\xb6\xa2\x11kL\xd1\xce\x7f\x14<y\x9e'
 #for docker container with docker secrets
